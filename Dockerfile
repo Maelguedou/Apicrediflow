@@ -32,7 +32,8 @@ WORKDIR /var/www/html
 COPY . /var/www/html
 
 # 9. On installe les dépendances PHP de Laravel (sans les outils de dev pour la production)
-RUN composer install --no-dev --optimize-autoloader
+RUN COMPOSER_ALLOW_SUPERUSER=1 COMPOSER_MEMORY_LIMIT=-1 composer install --no-dev --optimize-autoloader
+
 
 # 10. On donne les droits d'écriture au serveur web sur les dossiers storage et bootstrap/cache
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
