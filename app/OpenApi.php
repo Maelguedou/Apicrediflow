@@ -10,6 +10,10 @@ use OpenApi\Attributes as OA;
     description: "Documentation de l'API CrediFlow"
 )]
 #[OA\Server(
+    url: 'https://apicrediflow.onrender.com',
+    description: 'Serveur Production (Render)'
+)]
+#[OA\Server(
     url: 'http://localhost:8000',
     description: 'Serveur Local'
 )]
