@@ -46,7 +46,7 @@
                                         "format": "password",
                                         "example": "password123"
                                     },
-                                    "password_confirmed": {
+                                    "password_confirmation": {
                                         "type": "string",
                                         "format": "password",
                                         "example": "password123"

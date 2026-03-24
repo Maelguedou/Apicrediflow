@@ -32,7 +32,7 @@ class Authcontroller extends Controller
                         new OA\Property(property: 'pseudo', type: 'string', example: 'Or229'),
                         new OA\Property(property: 'phone', type: 'string', example: '+2290165622300'),
                         new OA\Property(property: 'password', type: 'string', format: 'password', example: 'password123'),
-                        new OA\Property(property: 'password_confirmed', type: 'string', format: 'password', example: 'password123'),
+                        new OA\Property(property: 'password_confirmation', type: 'string', format: 'password', example: 'password123'),
                         new OA\Property(property: 'activity_type', type: 'string', example: 'Commerce'),
                         new OA\Property(property: 'location', type: 'string', example: 'Cotonou'),
                         new OA\Property(property: 'registry', type: 'string', format: 'binary', description: 'Fichier du registre de commerce'),

@@ -16,5 +16,5 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::post('/join-request',[AdhesionController::class,'JoinExistGroup']);
     Route::post('/ask-request',[AdhesionController::class,'Request']);
     Route::post('/Client_logout',[Authcontroller::class,'Client_logout']);
-        Route::get('/Client_tontines',[TontineController::class,'getAll']);
+    Route::get('/Client_tontines',[TontineController::class,'getAll']);
 });
