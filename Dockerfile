@@ -43,3 +43,6 @@ RUN chmod +x /usr/local/bin/start
 
 # 12. On dit au serveur de lancer le script au démarrage
 CMD ["/usr/local/bin/start"]
+
+RUN COMPOSER_ALLOW_SUPERUSER=1 COMPOSER_MEMORY_LIMIT=-1 composer install --no-dev --optimize-autoloader --no-scripts --ignore-platform-reqs
+
