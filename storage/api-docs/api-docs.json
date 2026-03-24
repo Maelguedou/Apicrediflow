@@ -42,6 +42,11 @@
                                         "format": "password",
                                         "example": "password123"
                                     },
+                                    "password_confirmed": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "password123"
+                                    },
                                     "activity_type": {
                                         "type": "string",
                                         "example": "Commerce"
@@ -505,6 +510,70 @@
                     }
                 ]
             }
+        },
+        "/api/Client_tontines": {
+            "get": {
+                "tags": [
+                    "Tontines"
+                ],
+                "summary": "Liste de toutes les tontines",
+                "description": "Récupère les informations essentielles de tous les groupes de tontine disponibles.",
+                "operationId": "29534c38ac8b0b576981c8547087cfa7",
+                "responses": {
+                    "200": {
+                        "description": "Liste récupérée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Solidarité Tech"
+                                                    },
+                                                    "contribution_amount": {
+                                                        "type": "number",
+                                                        "example": 10000
+                                                    },
+                                                    "frequency": {
+                                                        "type": "string",
+                                                        "example": "monthly"
+                                                    },
+                                                    "duration": {
+                                                        "type": "integer",
+                                                        "example": 12
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Utilisateur non authentifié"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
         }
     },
     "components": {
@@ -524,6 +593,10 @@
         {
             "name": "Demande",
             "description": "Demande"
+        },
+        {
+            "name": "Tontines",
+            "description": "Tontines"
         }
     ]
 }
