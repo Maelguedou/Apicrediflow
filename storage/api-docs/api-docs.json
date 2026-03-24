@@ -1,0 +1,529 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "CrediFlow API",
+        "description": "Documentation de l'API CrediFlow",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000",
+            "description": "Serveur Local"
+        }
+    ],
+    "paths": {
+        "/api/register": {
+            "post": {
+                "tags": [
+                    "Authentification"
+                ],
+                "summary": "Inscription d'un client",
+                "operationId": "a3aacc09285bf97a82b9ae525c9b1991",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "company_name": {
+                                        "type": "string",
+                                        "example": "Team_Oryx"
+                                    },
+                                    "pseudo": {
+                                        "type": "string",
+                                        "example": "Or229"
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "example": "+2290165622300"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "password123"
+                                    },
+                                    "activity_type": {
+                                        "type": "string",
+                                        "example": "Commerce"
+                                    },
+                                    "location": {
+                                        "type": "string",
+                                        "example": "Cotonou"
+                                    },
+                                    "registry": {
+                                        "description": "Fichier du registre de commerce",
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "identity": {
+                                        "description": "Fichier de la pièce d'identité",
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "test@gmail.com"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "User registered successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User registered successfully"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "company_name": {
+                                                    "type": "string",
+                                                    "example": "Team_Oryx"
+                                                },
+                                                "pseudo": {
+                                                    "type": "string",
+                                                    "example": "Or229"
+                                                },
+                                                "phone": {
+                                                    "type": "string",
+                                                    "example": "+2290165622300"
+                                                },
+                                                "activity_type": {
+                                                    "type": "string",
+                                                    "example": "Commerce"
+                                                },
+                                                "location": {
+                                                    "type": "string",
+                                                    "example": "Cotonou"
+                                                },
+                                                "registry_url": {
+                                                    "type": "string",
+                                                    "example": "http://localhost:8000/storage/registry/xyz.pdf"
+                                                },
+                                                "identity_url": {
+                                                    "type": "string",
+                                                    "example": "http://localhost:8000/storage/identity/xyz.pdf"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "test@gmail.com"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error"
+                    }
+                }
+            }
+        },
+        "/api/verify": {
+            "post": {
+                "tags": [
+                    "Authentification"
+                ],
+                "summary": "Vérification OTP",
+                "operationId": "b32ffedfd824567ddb337e3cdfa60dcf",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id",
+                                    "otp"
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "otp": {
+                                        "type": "integer",
+                                        "example": 124000
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Compte vérifié"
+                    },
+                    "422": {
+                        "description": "Erreur de validation ou OTP invalide"
+                    }
+                }
+            }
+        },
+        "/api/Client_login": {
+            "post": {
+                "tags": [
+                    "Authentification"
+                ],
+                "summary": "Connexion du client",
+                "operationId": "e4528f57755c8b9d548be533c0f4cbb3",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "phone",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "phone": {
+                                        "description": "Format: +22901 suivi de 8 à 15 chiffres",
+                                        "type": "string",
+                                        "example": "+2290100112233"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "password123",
+                                        "minLength": 8
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Connexion réussie",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Login successful"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "token": {
+                                                    "type": "string",
+                                                    "example": "1|abc123token..."
+                                                },
+                                                "user": {
+                                                    "properties": {
+                                                        "id": {
+                                                            "type": "integer",
+                                                            "example": 1
+                                                        },
+                                                        "phone": {
+                                                            "type": "string",
+                                                            "example": "+2290100112233"
+                                                        },
+                                                        "is_verified": {
+                                                            "type": "boolean",
+                                                            "example": true
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Identifiants invalides (Téléphone ou mot de passe incorrect)"
+                    },
+                    "403": {
+                        "description": "Compte non vérifié"
+                    },
+                    "422": {
+                        "description": "Erreur de validation des champs"
+                    }
+                }
+            }
+        },
+        "/api/Client_logout": {
+            "post": {
+                "tags": [
+                    "Authentification"
+                ],
+                "summary": "Déconnexion du client",
+                "description": "Détruit le jeton d'accès actuel et déconnecte l'utilisateur.",
+                "operationId": "16e942086f0179e4f3215fe42bb77cda",
+                "responses": {
+                    "200": {
+                        "description": "Déconnexion réussie",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Logged out successfully"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": null,
+                                            "nullable": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Non authentifié (Token manquant ou invalide)"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/join-request": {
+            "post": {
+                "tags": [
+                    "Demande"
+                ],
+                "summary": "Demande d'adhésion à un groupe existant",
+                "description": "Permet à un utilisateur connecté d'envoyer une demande pour rejoindre une tontine via son ID.",
+                "operationId": "fc302efaa6c92c1b78de403659e5fbf7",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "tontine_group_id"
+                                ],
+                                "properties": {
+                                    "tontine_group_id": {
+                                        "description": "L'ID du groupe de tontine à rejoindre",
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Demande enregistrée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 10
+                                                },
+                                                "user_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "tontine_group_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Utilisateur non authentifié"
+                    },
+                    "409": {
+                        "description": "Conflit : Demande déjà existante"
+                    },
+                    "422": {
+                        "description": "Erreur de validation (ID du groupe inexistant ou manquant)"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/ask-request": {
+            "post": {
+                "tags": [
+                    "Demande"
+                ],
+                "summary": "Créer une nouvelle demande de tontine",
+                "description": "Nouvelle demande au cas où aucun groupe ne lui correspond",
+                "operationId": "761432457cfc6cb59d1034bbde3d0883",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "contribution_amount",
+                                    "frequency",
+                                    "duration"
+                                ],
+                                "properties": {
+                                    "contribution_amount": {
+                                        "description": "Montant de la cotisation (min: 1)",
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 5000
+                                    },
+                                    "frequency": {
+                                        "description": "Fréquence des versements",
+                                        "type": "string",
+                                        "example": "weekly",
+                                        "enum": [
+                                            "daily",
+                                            "weekly",
+                                            "monthly"
+                                        ]
+                                    },
+                                    "duration": {
+                                        "description": "Durée en nombre de cycles (min: 1)",
+                                        "type": "integer",
+                                        "example": 12
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Demande enregistrée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 5
+                                                },
+                                                "user_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "contribution_amount": {
+                                                    "type": "number",
+                                                    "example": 5000
+                                                },
+                                                "frequency": {
+                                                    "type": "string",
+                                                    "example": "weekly"
+                                                },
+                                                "duration": {
+                                                    "type": "integer",
+                                                    "example": 12
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Utilisateur non autorisé"
+                    },
+                    "422": {
+                        "description": "Erreur de validation (données incorrectes)"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Authentification",
+            "description": "Authentification"
+        },
+        {
+            "name": "Demande",
+            "description": "Demande"
+        }
+    ]
+}
